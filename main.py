@@ -1,6 +1,7 @@
 import requests
 from datetime import datetime
 import smtplib
+import time
 
 EMAIL = ""
 PASSWORD = ""
@@ -39,12 +40,14 @@ def is_night():
 
 
 #if its overhead and it's night time, email me
-if is_iss_overhead() and is_night():
-    connection = smtplib.SMTP("smtp.gmail.com")
-    connection.starttls()
-    connection.login(EMAIL, PASSWORD)
-    connection.sendmail(
-        from_addr=EMAIL,
-        to_addrs=EMAIL,
-        msg="Subject:Lookup\n\nThe iss is above you, Look up!!!"
-    )
+while True:
+    time.sleep(60)
+    if is_iss_overhead() and is_night():
+        connection = smtplib.SMTP("smtp.gmail.com")
+        connection.starttls()
+        connection.login(EMAIL, PASSWORD)
+        connection.sendmail(
+            from_addr=EMAIL,
+            to_addrs=EMAIL,
+            msg="Subject:Lookup\n\nThe iss is above you, Look up!!!"
+        )
